@@ -5,10 +5,61 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="20"
+        android:minSdkVersion="19"
         android:targetSdkVersion="21" />
-<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <permission-group
+        android:name="com.example.testbroadcast.ACCESS_DATA"
+        android:label="@string/app_name" />
+
+    <permission
+        android:name="testbroadcast.permission.READ_CLOCK"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
+        android:permissionGroup="com.example.testbroadcast.ACCESS_DATA"
+        android:protectionLevel="signatureOrSystem" />
+    <permission
+        android:name="testbroadcast.permission.WRITE_CLOCK"
+        android:label="@string/app_name"
+        android:permissionGroup="com.example.testbroadcast.ACCESS_DATA"
+        android:protectionLevel="signatureOrSystem" />
+    <permission
+        android:name="testbroadcast.permission.RECEIVE_SCHEDULE_FINISH"
+        android:label="@string/app_name"
+        android:permissionGroup="com.example.testbroadcast.ACCESS_DATA"
+        android:protectionLevel="signatureOrSystem" />
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="testbroadcast.permission.RECEIVE_SCHEDULE_FINISH" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -23,28 +74,383 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".receiver1">
-            <intent-filter >
-                <action android:name="com.test.receiver1"/>
+
+        <receiver android:name=".receiver1" >
+            <intent-filter>
+                <action android:name="com.test.receiver1" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver2">
-            <intent-filter >
-                <action android:name="com.test.receiver2"/>
+        <receiver android:name=".PollReceiver" >
+            <action android:name="great" />
+        </receiver>
+        <receiver android:name=".myReceiver2" >
+        </receiver>
+        <receiver android:name=".receiver2" >
+            <intent-filter>
+                <action android:name="com.test.receiver2" />
             </intent-filter>
+        </receiver>
+        <receiver android:name=".alarmreciver" >
         </receiver>
         <receiver android:name=".myReceiver" >
-            <intent-filter android:priority="2147483647" ><!--优先级加最高-->
+            <intent-filter android:priority="1" >
+
+                <!-- 优先级加最高 -->
                 <!-- 系统启动完成后会调用 -->
-                <action android:name="android.intent.action.BOOT_COMPLETED" />              
+               <!--  <action android:name="com.testalarm.ALARM_ALET"/> -->
+                <action android:name="com.intent.BRAODCAST" />
+                <action android:name="com.iflytek.testmaxalarms.ALARM_TEST"/>
+                <action android:name="com.zdworks.android.zdclock.ACTION_ALARM_ALERT" />
+                <action android:name="com.cdji.MY_ALARM" />
+                <action android:name="android.Intent.BROADCAST" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- 解锁完成后会调用 -->
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <!-- 监听情景切换 -->
-                <action android:name="android.media.RINGER_MODE_CHANGED" />              
+                <action android:name="android.media.RINGER_MODE_CHANGED" />
             </intent-filter>
-</receiver>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_DATA_CLEARED" />
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_RESTARTED" />
+                <action android:name="com.testalarm.intent.ALARM_ALET" />
 
-<service android:name=".testservice" ></service>
+                <data android:scheme="package" >
+                </data>
+            </intent-filter>
+            <!-- 隐秘数字事件 -->
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SECRET_CODE" >
+                </action>
+
+                <data
+                    android:host="0101"
+                    android:scheme="android_secret_code" >
+                </data>
+            </intent-filter>
+            <!--
+                收发短信、SIM卡存储已满、WAP PUSH的接收事件,<br/>  
+                需要android.permission.RECEIVER_SMS及android.permission.RECEIVER_MMS权限  
+            -->
+            <intent-filter>
+
+                <!-- 无法模仿 -->
+                <action android:name="android.provider.Telephony.SIM_FULL" >
+                </action>
+                <!--
+                    SMS_REJECTED:An incoming SMS has been rejected by the telephony  
+                    framework. This intent is sent in lieu of any of the  
+                    RECEIVED_ACTION intents.(无法模仿)  
+                -->
+                <action android:name="android.provider.Telephony.SMS_REJECTED" >
+                </action>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 向10086发送短信012345即可有WAP_PUSH,需要android.permission.RECEIVE_WAP_PUSH权限 -->
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" >
+                </action>
+
+                <data android:mimeType="application/vnd.wap.sic" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 向10086发送短信012345即可有WAP_PUSH,需要android.permission.RECEIVE_WAP_PUSH权限,未证实 -->
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" >
+                </action>
+
+                <data android:mimeType="application/vnd.wap.sic" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 彩信,需要android.permission.RECEIVE_WAP_PUSH权限,未证实 -->
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" >
+                </action>
+
+                <data android:mimeType="application/vnd.wap.mms-message" >
+                </data>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 开机自启动,需要android.permission.RECEIVE_BOOT_COMPLETED -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+                <action android:name="android.intent.action.PRE_BOOT_COMPLETED" >
+                </action>
+                <action android:name="android.intent.action.REBOOT" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 针对摩托罗拉等有相机快捷键的手机 -->
+                <action android:name="android.intent.action.CAMERA_BUTTON" >
+                </action>
+                <action android:name="android.intent.action.CALL_BUTTON" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 设置时间、时区时触发 -->
+                <action android:name="android.intent.action.TIME_SET" >
+                </action>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" >
+                </action>
+                <action android:name="android.intent.action.LOCALE_CHANGED" >
+                </action>
+                <action android:name="android.intent.action.DATE_CHANGED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 来去电事件监听，需要android.permission.READ_PHONE_STATE权限 -->
+                <action android:name="android.intent.action.PHONE_STATE" >
+                </action>
+                <!-- 开关Wifi时触发 -->
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" >
+                </action>
+                <!-- 电话的信号强度已经改变。 -->
+                <action android:name="android.intent.action.SIG_STR" >
+                </action>
+                <!-- 电话服务的状态已经改变。(调为飞行模式可观察到变化) -->
+                <action android:name="android.intent.action.SERVICE_STATE" >
+                </action>
+                <!-- 当改变AIRPLANE_MODE时触发 -->
+                <action android:name="android.intent.action.AIRPLANE_MODE" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.WALLPAPER_CHANGED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" >
+                </action>
+                <action android:name="android.intent.action.BATTERY_LOW" >
+                </action>
+                <action android:name="android.intent.action.BATTERY_OKAY" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 与充电器或USB连接时触发 -->
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" >
+                </action>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" >
+                </action>
+                <action android:name="android.intent.action.POWER_USAGE_SUMMARY" >
+                </action>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- (USB mass storage)未模拟 -->
+                <action android:name="android.intent.action.UMS_CONNECTED" >
+                </action>
+                <action android:name="android.intent.action.UMS_DISCONNECTED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 未模拟 -->
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" >
+                </action>
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 呼叫转接状态已被更改,未模拟 -->
+                <action android:name="android.intent.action.CFF" >
+                </action>
+                <!-- 不明其意，未模拟 -->
+                <action android:name="android.intent.action.DATA_STATE" >
+                </action>
+                <!-- 不明其意，未模拟 -->
+                <action android:name="android.intent.action.DATA_ACTIVITY" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 不明其意，未模拟 -->
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 以下内容有反应，规律不明,适用于电子市场 -->
+                <!-- 取消所有被挂起的 (pending) 更新下载。 -->
+                <action android:name="android.server.checkin.FOTA_CANCEL" >
+                </action>
+                <!-- 更新已经被确认，马上就要开始安装。 -->
+                <action android:name="android.server.checkin.FOTA_INSTALL" >
+                </action>
+                <!-- 更新已经被下载，可以开始安装。 -->
+                <action android:name="android.server.checkin.FOTA_READY" >
+                </action>
+                <!-- 恢复已经停止的更新下载。 -->
+                <action android:name="android.server.checkin.FOTA_RESTART" >
+                </action>
+                <!-- 通过 OTA 下载并安装操作系统更新。 -->
+                <action android:name="android.server.checkin.FOTA_UPDATE" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SYNC_STATE_CHANGED" >
+                </action>
+                <action android:name="com.android.sync.SYNC_CONN_STATUS_CHANGED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.HEADSET_PLUG" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 选择静音时触发 -->
+                <action android:name="android.media.RINGER_MODE_CHANGED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 扩展介质（扩展卡）已经从 SD 卡插槽拔出，但是挂载点 (mount point) 还没解除 (unmount)。 -->
+                <action android:name="android.intent.action.MEDIA_BAD_REMOVAL" >
+                </action>
+                <!-- 用户想要移除扩展介质（拔掉扩展卡）。 -->
+                <action android:name="android.intent.action.MEDIA_EJECT" >
+                </action>
+                <!-- 扩展介质被插入，而且已经被挂载。 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" >
+                </action>
+                <!-- 扩展介质被移除。 -->
+                <action android:name="android.intent.action.MEDIA_REMOVED" >
+                </action>
+                <!-- 已经扫描完介质的一个目录。 -->
+                <action android:name="android.intent.action.MEDIA_SCANNER_FINISHED" >
+                </action>
+                <!-- 开始扫描介质的一个目录 -->
+                <action android:name="android.intent.action.MEDIA_SCANNER_STARTED" >
+                </action>
+                <!-- 扩展介质的挂载被解除 (unmount)，因为它已经作为 USB 大容量存储被共享。 -->
+                <action android:name="android.intent.action.MEDIA_SCANNER_SHARED" >
+                </action>
+                <!-- 扩展介质存在，但是还没有被挂载 (mount)。 -->
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 不了解，未证实 -->
+                <action android:name="android.intent.action.MEDIA_BUTTON" >
+                </action>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 设备收到了新的网络 "tickle" 通知,未模拟 -->
+                <action android:name="android.intent.action.NETWORK_TICKLE_RECEIVED" >
+                </action>
+            </intent-filter>
+            <intent-filter>
+
+                <!-- 条件不允许，未模拟 -->
+                <!-- 更新将要（真正）被安装。 -->
+                <action android:name="android.intent.action.PROVIDER_CHANGED" >
+                </action>
+                <!-- 要求 polling of provisioning service 下载最新的设置。 -->
+                <action android:name="android.intent.action.PROVISIONING_CHECK" >
+                </action>
+            </intent-filter>
+            <!-- 其它广播事件,不明其意，未模拟 -->
+            <intent-filter>
+
+                <!-- XMPP 连接已经被建立。 -->
+                <action android:name="android.intent.action.XMPP_CONNECTED" >
+                </action>
+                <!-- XMPP 连接已经被断开。 -->
+                <action android:name="andandroid.intent.action.XMPP_DI" >
+                </action>
+                <!-- 统计信息服务的状态已经改变。 -->
+                <action android:name="android.intent.action.STATISTICS_STATE_CHANGED" >
+                </action>
+                <!-- 要求 receivers 报告自己的统计信息。 -->
+                <action android:name="android.intent.action.STATISTICS_REPORT" >
+                </action>
+                <action android:name="android.intent.action.GTALK_DISCONNECTED" >
+                </action>
+                <action android:name="android.intent.action.GTALK_CONNECTED" >
+                </action>
+                <action android:name="android.intent.action.GET_CONTENT" >
+                </action>
+                <action android:name="android.intent.action.MANAGE_PACKAGE_STORAGE" >
+                </action>
+                <action android:name="android.intent.action.UID_REMOVED" >
+                </action>
+                <action android:name="android.intent.action.USER_PRESENT" >
+                </action>
+                <action android:name="com.zdworks.android.zdclock.REMIND_ADD" />
+                <action android:name="com.zdworks.android.zdclock.SEVEN_REMIND_ADD" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_ALARM_ALERT" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.zdworks.android.zdclock.TRIGGER_MAIN" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_ASSISTANT_ALARM_ALERT" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_SCHEDULE_FINISH" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_DATE_CHANGED" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_NEED_BACKUP" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.zdworks.android.zdclock.START_PUSH" />
+                <action android:name="android.media.RINGER_MODE_CHANGED" />
+                <action android:name="com.zdworks.android.zdclock.RESCAN_STRIKE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_SCHEDULE_FINISH" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_TIME_CHANGED" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_DATE_CHANGED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_SCHEDULE_FINISH" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_DATE_CHANGED" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_TIME_CHANGED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_PICK" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_SCHEDULE_FINISH" />
+                <action android:name="com.zdworks.android.zdclock.ACTION_DATE_CHANGED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="com.nd.android.pandahome.widget.category" />
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <action android:name="android.intent.action.SHORTCUT_INTENT" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".timechangereciver" >
+        </receiver>
+
+        <service android:name=".testservice" >
+        </service>
+        <service android:name=".service2" >
+        </service>
+        <service android:name=".Pollservice" >
+        </service>
     </application>
 
 </manifest>
